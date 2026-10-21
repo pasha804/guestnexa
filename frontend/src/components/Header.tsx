@@ -50,6 +50,18 @@ export const Header: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Lock background body scroll when mobile navigation drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const serviceSubItems = [
     {
       id: "guest-posting",
@@ -364,7 +376,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Navigation Drawer (Visible < 1024px when open) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[60px] sm:top-[68px] bg-white/98 backdrop-blur-2xl border-b border-slate-200 px-5 sm:px-8 py-5 shadow-2xl transition-all max-h-[85vh] overflow-y-auto z-50">
+        <div className="lg:hidden fixed inset-x-0 top-[60px] sm:top-[68px] bottom-0 bg-white/98 backdrop-blur-2xl border-b border-slate-200 px-5 sm:px-8 py-5 shadow-2xl transition-all overflow-y-auto overscroll-contain z-50 pb-20 touch-pan-y">
           <div className="flex flex-col space-y-2 max-w-lg mx-auto">
             <Link
               href="/#hero"

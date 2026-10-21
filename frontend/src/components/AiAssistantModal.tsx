@@ -64,7 +64,18 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
         inputRef.current?.focus();
         scrollToBottom();
       }, 150);
+
+      // Lock body scroll on mobile viewports so chat scrolls smoothly
+      if (typeof window !== "undefined" && window.innerWidth < 640) {
+        document.body.style.overflow = "hidden";
+      }
+    } else {
+      document.body.style.overflow = "";
     }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -246,7 +257,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
   };
 
   // Render markdown formatting simply (bold, links, bullet points, and WhatsApp action buttons)
-  const formatMessageText = (content: string, isStreamingMessage?: boolean) => {
+  const formatMessageText = (content: string, isStreamingMessage?: boolean, isUserMessage?: boolean) => {
     const lines = content.split("\n");
     return (
       <div className="space-y-1">
@@ -285,7 +296,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
 
           return (
             <div key={idx} className={`${isBullet ? "flex items-start gap-1.5 ml-2 my-0.5" : "my-0.5"}`}>
-              {isBullet && <span className="text-[#D4AF37] font-black shrink-0 mt-0.5">•</span>}
+              {isBullet && <span className="text-[#2587C4] font-black shrink-0 mt-0.5">•</span>}
               <div className="flex-1 flex flex-wrap items-center gap-x-1 gap-y-0.5">
                 {segments.map((seg, sIdx) => {
                   if (seg.type === "link" && seg.url) {
@@ -299,7 +310,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
                         className={`inline-flex items-center gap-1.5 px-3 py-1 my-1 rounded-xl text-xs font-bold transition-all shadow-sm ${
                           isWhatsApp
                             ? "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_0_12px_rgba(16,185,129,0.35)]"
-                            : "bg-[#091D4A] hover:bg-[#122A63] text-[#38BDF8] border border-[#38BDF8]/40"
+                            : "bg-blue-50 hover:bg-blue-100 text-[#2587C4] border border-blue-200"
                         }`}
                       >
                         {isWhatsApp && <BrandIcon name="whatsapp" size={13} />}
@@ -315,9 +326,17 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
                     <span key={sIdx}>
                       {boldParts.map((part, pIdx) => {
                         if (part.startsWith("**") && part.endsWith("**")) {
+                          const boldContent = part.slice(2, -2);
                           return (
-                            <strong key={pIdx} className="text-[#FFF4C2] font-extrabold">
-                              {part.slice(2, -2)}
+                            <strong
+                              key={pIdx}
+                              className={
+                                isUserMessage
+                                  ? "text-[#FFD166] font-black"
+                                  : "text-[#92400E] font-extrabold bg-[#FEF3C7] border border-[#FDE68A] px-1.5 py-0.5 rounded-md inline-block my-0.5 shadow-xs"
+                              }
+                            >
+                              {boldContent}
                             </strong>
                           );
                         }
@@ -331,7 +350,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
           );
         })}
         {isStreamingMessage && (
-          <span className="inline-block w-2 h-3.5 bg-[#D4AF37] ml-0.5 animate-pulse align-middle" />
+          <span className="inline-block w-2 h-3.5 bg-[#2587C4] ml-0.5 animate-pulse align-middle" />
         )}
       </div>
     );
@@ -447,7 +466,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
                   : "bg-white border border-slate-200 text-slate-700 rounded-tl-none space-y-1 shadow-sm"
               }`}
             >
-              {formatMessageText(m.content, m.isStreaming)}
+              {formatMessageText(m.content, m.isStreaming, m.role === "user")}
               <div
                 className={`text-[9px] mt-1.5 opacity-70 text-right ${
                   m.role === "user" ? "text-slate-300" : "text-slate-400"
