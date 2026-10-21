@@ -2,66 +2,82 @@
 
 @layer base {
   :root {
-    /* DARK BLUE + METALLIC GOLD COLOR SYSTEM */
-    --bg-primary: #020612;          /* Deepest midnight sapphire */
-    --bg-secondary: #050D20;        /* Deep ocean dark blue */
-    --bg-tertiary: #08142F;         /* Midnight navy */
-    --bg-card: rgba(8, 20, 48, 0.65);
-    --surface-glass: rgba(6, 16, 38, 0.75);
-    --surface-glass-border: rgba(212, 175, 55, 0.28);
-    
-    /* SPECULAR METALLIC GOLD GRADIENTS & SHADES */
-    --gold-light: #FFF4C2;
-    --gold-primary: #D4AF37;
-    --gold-secondary: #F3CF7A;
-    --gold-dark: #9A6F14;
-    --gold-shadow: rgba(212, 175, 55, 0.28);
-    --gold-glow: rgba(212, 175, 55, 0.22);
-    
-    /* BLUE ACCENTS */
-    --blue-vibrant: #1E40AF;
-    --blue-glow: rgba(30, 64, 175, 0.35);
+    /* GUESTNEXA BRAND COLOR SYSTEM */
+    /* Base color: White #FFFFFF */
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --bg-tertiary: #F1F5F9;
+    --bg-card: #FFFFFF;
+    --surface-glass: rgba(255, 255, 255, 0.85);
+    --surface-glass-border: rgba(24, 42, 82, 0.12);
+
+    /* CLIENT SPECIFIED COLORS */
+    --color-navy: #182A52;
+    --color-blue: #2587C4;
+    --color-yellow: #FFB719;
+    --color-white: #FFFFFF;
+
+    /* EXTENDED PALETTE */
+    --blue-light: #EBF5FB;
+    --blue-primary: #2587C4;
+    --blue-dark: #1A6B9E;
+    --blue-glow: rgba(37, 135, 196, 0.25);
+
+    --navy-dark: #0F1C38;
+    --navy-primary: #182A52;
+    --navy-light: #263F73;
+
+    --yellow-primary: #FFB719;
+    --yellow-hover: #E5A312;
+    --yellow-light: #FFF8E6;
+    --yellow-glow: rgba(255, 183, 25, 0.3);
 
     /* TEXT */
-    --text-primary: #FFFFFF;
-    --text-secondary: #E2E8F0;
-    --text-muted: #94A3B8;
+    --text-primary: #182A52;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
   }
 
   html {
     scroll-behavior: smooth;
-    color-scheme: dark;
+    color-scheme: light;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    width: 100%;
+    min-height: 100%;
   }
 
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
     min-height: 100vh;
+    position: relative;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-overflow-scrolling: touch;
   }
 
-  /* Custom Metallic Gold Scrollbar */
+  /* Custom Clean Blue & Navy Scrollbar */
   ::-webkit-scrollbar {
     width: 9px;
   }
   ::-webkit-scrollbar-track {
-    background: #020612;
+    background: #F1F5F9;
   }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #9A6F14 0%, #D4AF37 50%, #08142F 100%);
+    background: linear-gradient(180deg, #2587C4 0%, #182A52 100%);
     border-radius: 5px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.8);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #F3CF7A 0%, #D4AF37 50%, #AA771C 100%);
+    background: linear-gradient(180deg, #FFB719 0%, #2587C4 100%);
   }
 
   ::selection {
-    background: rgba(212, 175, 55, 0.4);
-    color: #FFFFFF;
+    background: rgba(37, 135, 196, 0.25);
+    color: #182A52;
   }
 
   /* Mobile Performance & Touch Optimizations */
@@ -74,201 +90,110 @@
       -webkit-tap-highlight-color: transparent;
     }
   }
-
-  /* Core Web Vitals Turbo: defer layout & paint of offscreen sections */
-  #about,
-  #services,
-  #projects,
-  #certificates,
-  #reviews,
-  #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: 800px;
-  }
 }
 
-/* Professional Balanced Metallic Gold Typography (True Studio Gold Luster) */
-.metallic-gold-text,
-.gold-metallic-text,
-.metallic-gold {
-  background: linear-gradient(
-    180deg,
-    #FFF2BF 0%,
-    #F7D576 25%,
-    #DFB143 50%,
-    #B58424 75%,
-    #D4A232 100%
-  ) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  color: transparent !important;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  display: inline-block;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
-}
+/* ==========================================================================
+   TYPOGRAPHY & BRAND GRADIENT CLASSES
+   ========================================================================== */
 
+/* Brand Navy-to-Blue Heading Gradient */
+.brand-heading-gradient,
 .metallic-gold-heading {
-  background: linear-gradient(
-    180deg,
-    #FFF0B8 0%,
-    #FAD97A 22%,
-    #E2B344 48%,
-    #B38222 72%,
-    #D9A736 92%,
-    #C49226 100%
-  ) !important;
+  background: linear-gradient(135deg, #182A52 20%, #2587C4 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
   color: transparent !important;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
   display: inline-block;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 12px rgba(212, 175, 55, 0.35));
+}
+
+/* Warm Yellow / Gold Highlight Text (Logo Accent) */
+.brand-yellow-text,
+.metallic-gold-text {
+  background: linear-gradient(135deg, #FFB719 0%, #F59E0B 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+  display: inline-block;
+  font-weight: 800;
 }
 
 .metallic-gold-subtle {
-  background: linear-gradient(
-    180deg,
-    #FFF4CC 0%,
-    #F3CD6E 30%,
-    #D4A638 65%,
-    #A87920 100%
-  ) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  color: transparent !important;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  display: inline-block;
-  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.65));
+  color: #FFB719 !important;
 }
 
-/* Metallic Gold Borders & Frames */
-.metallic-gold-border {
-  border: 1px solid rgba(212, 175, 55, 0.35);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.12), inset 0 0 10px rgba(212, 175, 55, 0.05);
+/* Glassmorphic White Cards */
+.clean-white-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(24, 42, 82, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(24, 42, 82, 0.05), 0 4px 10px -2px rgba(24, 42, 82, 0.02);
+  transition: all 0.3s ease;
 }
 
-.metallic-gold-frame {
-  position: relative;
-  background: linear-gradient(135deg, rgba(243, 207, 122, 0.6), rgba(8, 20, 48, 0.85), rgba(212, 175, 55, 0.5));
-  padding: 2.5px;
-  border-radius: 2rem;
-  box-shadow: 0 25px 60px -15px rgba(2, 6, 18, 0.95), 0 0 35px rgba(212, 175, 55, 0.28);
-}
-
-.metallic-gold-frame::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: linear-gradient(
-    115deg,
-    rgba(255, 244, 194, 0.7) 0%,
-    rgba(212, 175, 55, 0.15) 40%,
-    rgba(255, 244, 194, 0.8) 60%,
-    rgba(154, 111, 20, 0.25) 100%
-  );
-  z-index: -1;
-  pointer-events: none;
-}
-
-/* Glassmorphic Dark Blue Panels */
-.glass-blue-panel {
-  background: rgba(5, 13, 32, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
-  box-shadow: 0 12px 35px -10px rgba(0, 0, 0, 0.75), 0 0 20px -5px rgba(30, 64, 175, 0.18);
-}
-
-.glass-blue-panel-hover {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-blue-panel-hover:hover {
-  background: rgba(8, 20, 48, 0.92);
-  border-color: rgba(212, 175, 55, 0.6);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85), 0 0 32px rgba(212, 175, 55, 0.28);
+.clean-white-card:hover {
+  border-color: rgba(37, 135, 196, 0.35);
+  box-shadow: 0 20px 40px -10px rgba(37, 135, 196, 0.15), 0 0 25px rgba(255, 183, 25, 0.1);
   transform: translateY(-3px);
 }
 
-/* Metallic Buttons */
+/* Primary Button: Gradient Blue #2587C4 with Navy / Yellow Highlight */
+.brand-primary-button,
 .metallic-gold-button {
   position: relative;
-  background: linear-gradient(
-    135deg,
-    #8F6A2A 0%,
-    #C6A15B 20%,
-    #F0D58A 42%,
-    #D4AF68 58%,
-    #A8792F 80%,
-    #E2C477 100%
-  );
-  color: #03091B;
-  font-weight: 800;
-  box-shadow: 0 4px 25px -2px rgba(212, 175, 55, 0.45);
-  overflow: hidden;
-  transition: all 0.35s ease;
-}
-
-.metallic-gold-button::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 35%,
-    rgba(255, 255, 255, 0.45) 50%,
-    transparent 65%
-  );
-  transform: translateX(-100%);
-  transition: transform 0.6s ease;
-}
-
-.metallic-gold-button:hover {
-  background: linear-gradient(
-    135deg,
-    #A8792F 0%,
-    #E2C477 25%,
-    #FFF4C2 50%,
-    #F0D58A 75%,
-    #C6A15B 100%
-  );
-  box-shadow: 0 8px 32px 2px rgba(212, 175, 55, 0.65);
-  transform: translateY(-2px);
-}
-
-.metallic-gold-button:hover::after {
-  transform: translateX(100%);
-}
-
-.metallic-outline-button {
-  background: rgba(4, 12, 34, 0.85);
-  backdrop-filter: blur(16px);
-  border: 2px solid rgba(212, 175, 55, 0.7);
-  color: #FFF4C2;
-  font-weight: 700;
-  box-shadow: 0 4px 20px rgba(2, 6, 18, 0.6), inset 0 0 15px rgba(212, 175, 55, 0.1);
-  transition: all 0.35s ease;
-}
-
-.metallic-outline-button:hover {
-  border-color: #FFF4C2;
-  background: rgba(212, 175, 55, 0.22);
+  background: linear-gradient(135deg, #182A52 0%, #2587C4 100%);
   color: #FFFFFF;
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.45);
+  font-weight: 800;
+  box-shadow: 0 6px 20px -2px rgba(37, 135, 196, 0.4);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.brand-primary-button:hover,
+.metallic-gold-button:hover {
+  background: linear-gradient(135deg, #2587C4 0%, #182A52 100%);
+  box-shadow: 0 10px 28px rgba(37, 135, 196, 0.55), 0 0 20px rgba(255, 183, 25, 0.3);
   transform: translateY(-2px);
 }
 
-/* Horizontal 3D Planetary Orbit Animation & Sizing */
+/* Outline Button: Clean Crisp White with Blue Border */
+.brand-outline-button,
+.metallic-outline-button {
+  background: #FFFFFF;
+  border: 2px solid #2587C4;
+  color: #182A52;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(37, 135, 196, 0.1);
+  transition: all 0.3s ease;
+}
+
+.brand-outline-button:hover,
+.metallic-outline-button:hover {
+  border-color: #182A52;
+  background: #2587C4;
+  color: #FFFFFF;
+  box-shadow: 0 8px 25px rgba(37, 135, 196, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Yellow Accent Button */
+.brand-yellow-button {
+  background: linear-gradient(135deg, #FFB719 0%, #F59E0B 100%);
+  color: #182A52;
+  font-weight: 800;
+  box-shadow: 0 6px 20px -2px rgba(255, 183, 25, 0.4);
+  transition: all 0.3s ease;
+}
+
+.brand-yellow-button:hover {
+  background: linear-gradient(135deg, #F59E0B 0%, #FFB719 100%);
+  box-shadow: 0 10px 28px rgba(255, 183, 25, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   HERO PROFILE ROTATING RING ANIMATIONS (STRICTLY PRESERVED AS REQUESTED)
+   ========================================================================== */
 :root {
   --orbit-radius: 260px;
 }
@@ -357,43 +282,6 @@
   animation-play-state: paused !important;
 }
 
-/* Legacy Tilted Orbit (Preserved for compatibility) */
-@keyframes orbit-tilt-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes orbit-tilt-counter {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-
-.animate-orbit-tilted {
-  animation: orbit-tilt-rotate 38s linear infinite;
-}
-
-.animate-orbit-tilted:hover,
-.orbit-paused {
-  animation-play-state: paused !important;
-}
-
-.animate-orbit-tilted-counter {
-  animation: orbit-tilt-counter 38s linear infinite;
-}
-
-.animate-orbit-tilted-counter:hover,
-.orbit-paused-counter {
-  animation-play-state: paused !important;
-}
-
 /* Soft Ambient Pulse */
 @keyframes ambient-glow-pulse {
   0%, 100% {
@@ -410,9 +298,7 @@
   animation: ambient-glow-pulse 8s ease-in-out infinite;
 }
 
-/* ==========================================================================
-   CLEAN SECTIONS & SMOOTH STATIC SCROLLING (No Fade Out/In on Scroll)
-   ========================================================================== */
+/* Clean static scrolling */
 .cinematic-reveal,
 .cinematic-reveal.is-revealed,
 .cinematic-reveal.is-scrolled-past,
@@ -429,24 +315,21 @@
 }
 
 /* ==========================================================================
-   WHATSAPP COOPERATIVE DOCK AUTO-ANIMATIONS (Pill + Hand + Real Button)
+   WHATSAPP DOCK AUTO-ANIMATIONS
    ========================================================================== */
-
-/* 1. Pill Badge Subtle Nudge & Glow (Directs attention towards WhatsApp) */
 @keyframes auto-wa-pill-nudge {
   0%, 100% {
     transform: translate3d(0, 0, 0);
     border-color: rgba(37, 211, 102, 0.45);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85), 0 0 15px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(37, 211, 102, 0.2);
   }
   22% {
     transform: translate3d(2px, 0, 0);
   }
   38% {
-    /* Nudges forward towards WhatsApp button as hand points */
     transform: translate3d(5px, 0, 0);
     border-color: rgba(37, 211, 102, 0.85);
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.9), 0 0 24px rgba(37, 211, 102, 0.45);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2), 0 0 24px rgba(37, 211, 102, 0.45);
   }
   50% {
     transform: translate3d(2px, 0, 0);
@@ -454,57 +337,49 @@
   62% {
     transform: translate3d(4px, 0, 0);
     border-color: rgba(37, 211, 102, 0.75);
-    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.9), 0 0 20px rgba(37, 211, 102, 0.35);
+    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.18), 0 0 20px rgba(37, 211, 102, 0.35);
   }
   75%, 90% {
     transform: translate3d(0, 0, 0);
     border-color: rgba(37, 211, 102, 0.45);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85), 0 0 15px rgba(37, 211, 102, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 15px rgba(37, 211, 102, 0.2);
   }
 }
 
-/* 2. Hand Gesture (Smoothly points and moves towards the WhatsApp button) */
 @keyframes auto-wa-hand-gesture {
   0%, 100% {
     transform: translate3d(-3px, 0, 0) scale(1);
     opacity: 0.95;
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
   }
   20% {
-    /* Moves forward toward WhatsApp */
     transform: translate3d(3px, 0, 0) scale(1.05);
     opacity: 1;
   }
   38% {
-    /* Intentional point & gesture toward WhatsApp button */
     transform: translate3d(9px, 0, 0) scale(1.15);
     filter: drop-shadow(0 0 12px rgba(37, 211, 102, 0.85));
   }
   48% {
-    /* Gentle elastic rebound */
     transform: translate3d(4px, 0, 0) scale(1.03);
   }
   62% {
-    /* Second rhythmic point toward WhatsApp */
     transform: translate3d(8px, 0, 0) scale(1.1);
     filter: drop-shadow(0 0 10px rgba(37, 211, 102, 0.7));
   }
   74%, 88% {
-    /* Returns smoothly to starting position */
     transform: translate3d(-3px, 0, 0) scale(1);
-    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
     opacity: 0.95;
   }
 }
 
-/* 3. Real WhatsApp Button Zoom Pop (Reacts dynamically to hand gesture) */
 @keyframes auto-wa-button-zoom {
   0%, 30%, 100% {
     transform: scale(1);
-    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.48), 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.48), 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   38% {
-    /* Hand points/taps: BUTTON ZOOMS & BURSTS WITH VIBRANT GLOW! */
     transform: scale(1.15);
     box-shadow: 0 18px 45px rgba(37, 211, 102, 0.85), 0 0 40px rgba(37, 211, 102, 0.65);
   }
@@ -512,17 +387,15 @@
     transform: scale(1.04);
   }
   62% {
-    /* Second subtle pulse */
     transform: scale(1.09);
     box-shadow: 0 14px 38px rgba(37, 211, 102, 0.75), 0 0 30px rgba(37, 211, 102, 0.5);
   }
   72% {
     transform: scale(1);
-    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.48), 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 28px rgba(37, 211, 102, 0.48), 0 4px 15px rgba(0, 0, 0, 0.2);
   }
 }
 
-/* 4. Shimmer Light Beam sweep across the pill */
 @keyframes wa-pill-shimmer {
   0% {
     transform: translateX(-150%);
@@ -566,15 +439,7 @@
   .animate-counter-icon,
   .animate-orbit-horizontal,
   .animate-orbit-horizontal-counter,
-  .animate-orbit-tilted,
-  .animate-orbit-tilted-counter,
   .animate-ambient-glow {
     animation: none !important;
-  }
-  .cinematic-reveal,
-  .scroll-reveal {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
   }
 }

@@ -9,27 +9,27 @@ import { ContactSection } from "@/components/ContactSection";
 
 export default function Home() {
   return (
-    <main className="w-full relative flex flex-col">
-        {/* 01 — HERO: Meet Haider Ali */}
-        <HeroSection />
+    <div className="w-full relative flex flex-col">
+      {/* 01 — HERO: Meet Attia Awais & Rotating Ring */}
+      <HeroSection />
 
-      {/* 02 — ABOUT: Strategy & Mind Behind MH Marketing */}
+      {/* 02 — ABOUT: Story, Expertise & High-Authority Network */}
       <AboutSection />
 
-      {/* 03 — SERVICES: Digital Marketing Built Around Growth */}
+      {/* 03 — SERVICES: Guest Posting, Link Building, Off-Page SEO */}
       <ServicesSection />
 
-      {/* 04 — SELECTED WORK: 10 Verified Client Projects */}
+      {/* 04 — SELECTED WORK: SEO Case Studies & Rankings */}
       <ProjectShowcase />
 
-      {/* 05 — CERTIFICATES: Verified Credentials */}
+      {/* 05 — CERTIFICATES: Skilledinn Guest Posting Credential */}
       <CertificatesSection />
 
-      {/* 06 — SOCIAL PROOF: Real Facebook Feedback & Reviews */}
+      {/* 06 — SOCIAL PROOF: 12 Real SEO Reviews & Results */}
       <ReviewsSection />
 
-      {/* 07 — CONTACT: Start a Project & 1-Line Social Connection Box */}
+      {/* 07 — CONTACT: Direct WhatsApp & Instant SEO Consultation */}
       <ContactSection />
-    </main>
+    </div>
   );
 }

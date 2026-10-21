@@ -7,183 +7,168 @@ export const StructuredData: React.FC = () => {
     "@graph": [
       {
         "@type": "Person",
-        "@id": "https://mhmarketing.vercel.app/#person",
+        "@id": "https://www.guestnexa.com/#person",
         "name": OWNER_INFO.name,
         "jobTitle": OWNER_INFO.title,
         "description": OWNER_INFO.bioShort,
         "telephone": OWNER_INFO.phoneClean,
         "email": OWNER_INFO.email,
-        "url": "https://mhmarketing.vercel.app",
-        "image": "https://mhmarketing.vercel.app/images/profile/haider-ali.png",
+        "url": "https://www.guestnexa.com",
+        "image": "https://www.guestnexa.com/images/profile/attia-portrait.png",
         "sameAs": [
+          OWNER_INFO.socials.facebookPage,
           OWNER_INFO.socials.facebook,
           OWNER_INFO.socials.instagram,
           OWNER_INFO.socials.linkedin,
           OWNER_INFO.socials.youtube,
-          OWNER_INFO.socials.tiktok
+          OWNER_INFO.socials.whatsappChannel
         ],
         "knowsAbout": [
-          "Digital Marketing",
-          "Meta Ads",
-          "Facebook Advertising",
-          "Instagram Marketing",
-          "Google Ads",
+          "Guest Posting",
+          "Link Building",
+          "Off-Page SEO",
+          "High DA Dofollow Backlinks",
+          "Blogger Outreach",
+          "Editorial Backlinks",
           "Search Engine Optimization (SEO)",
-          "Lead Generation",
-          "Social Media Management",
-          "Content Strategy",
-          "Conversion Rate Optimization (CRO)",
-          "E-Commerce Growth Marketing"
+          "Domain Authority Growth",
+          "Anchor Text Strategy"
         ],
         "worksFor": {
-          "@id": "https://mhmarketing.vercel.app/#organization"
+          "@id": "https://www.guestnexa.com/#organization"
         },
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Islamabad",
-          "addressRegion": "Federal",
+          "addressLocality": "Lahore",
+          "addressRegion": "Punjab",
           "addressCountry": "PK"
         }
       },
       {
         "@type": "ProfessionalService",
-        "@id": "https://mhmarketing.vercel.app/#organization",
+        "@id": "https://www.guestnexa.com/#organization",
         "name": OWNER_INFO.brandName,
-        "url": "https://mhmarketing.vercel.app",
-        "logo": "https://mhmarketing.vercel.app/images/logo/mh-marketing.png",
-        "image": "https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5",
-        "description": "High-impact digital marketing services helping businesses scale across Pakistan, UK, USA, UAE, and Saudi Arabia.",
+        "url": "https://www.guestnexa.com",
+        "logo": "https://www.guestnexa.com/images/logo/guestnexa-logo.png",
+        "image": "https://www.guestnexa.com/images/og-logo.png?v=logo-gn1",
+        "description": "GuestNexa is an elite SEO agency specializing in high-authority Guest Posting, Link Building, and Off-Page SEO services.",
         "telephone": OWNER_INFO.phoneClean,
         "email": OWNER_INFO.email,
         "priceRange": "$$",
         "openingHours": "Mo-Sa 09:00-21:00",
         "address": {
           "@type": "PostalAddress",
-          "addressLocality": "Islamabad",
-          "addressRegion": "Federal",
+          "addressLocality": "Lahore",
+          "addressRegion": "Punjab",
           "addressCountry": "PK"
         },
         "geo": {
           "@type": "GeoCoordinates",
-          "latitude": "33.6844",
-          "longitude": "73.0479"
+          "latitude": "31.5204",
+          "longitude": "74.3587"
         },
         "areaServed": [
           { "@type": "Country", "name": "Pakistan" },
-          { "@type": "Country", "name": "United Kingdom" },
           { "@type": "Country", "name": "United States" },
-          { "@type": "Country", "name": "United Arab Emirates" },
-          { "@type": "Country", "name": "Saudi Arabia" }
+          { "@type": "Country", "name": "United Kingdom" },
+          { "@type": "Country", "name": "Canada" },
+          { "@type": "Country", "name": "Australia" },
+          { "@type": "Country", "name": "United Arab Emirates" }
         ],
         "aggregateRating": {
           "@type": "AggregateRating",
           "ratingValue": "5.0",
-          "reviewCount": "32",
+          "reviewCount": "48",
           "bestRating": "5",
           "worstRating": "1"
         },
         "founder": {
-          "@id": "https://mhmarketing.vercel.app/#person"
+          "@id": "https://www.guestnexa.com/#person"
         },
         "hasOfferCatalog": {
           "@type": "OfferCatalog",
-          "name": "Digital Marketing Solutions",
+          "name": "GuestNexa SEO Services",
           "itemListElement": [
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Social Media Management",
-                "description": "Cross-platform organic and paid social growth on Meta, TikTok, and LinkedIn."
+                "name": "Guest Posting Services",
+                "description": "High DA editorial guest post placements on real websites with natural organic traffic."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Meta Advertising (Facebook & Instagram Ads)",
-                "description": "High-ROAS paid campaign setup, audience segmentation, and continuous creative testing."
+                "name": "Link Building Services",
+                "description": "Strategic contextual white-hat dofollow backlink campaigns to boost domain authority."
               }
             },
             {
               "@type": "Offer",
               "itemOffered": {
                 "@type": "Service",
-                "name": "Google Ads & PPC Search Campaigns",
-                "description": "High-intent buyer keyword targeting, smart bidding, and conversion tracking."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Search Engine Optimization (SEO)",
-                "description": "On-page optimization, technical audit, and local SEO for lasting search rankings."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "High-Intent Lead Generation",
-                "description": "Sales funnel construction connecting advertising directly to qualified WhatsApp leads."
+                "name": "Off-Page SEO Services",
+                "description": "Complete backlink profile auditing, toxic link disavow, tier-2 backlink boosting, and SERP domination."
               }
             }
           ]
         },
         "sameAs": [
+          OWNER_INFO.socials.facebookPage,
           OWNER_INFO.socials.facebook,
           OWNER_INFO.socials.instagram,
           OWNER_INFO.socials.linkedin,
           OWNER_INFO.socials.youtube,
-          OWNER_INFO.socials.tiktok
+          OWNER_INFO.socials.whatsappChannel
         ]
       },
       {
         "@type": "WebSite",
-        "@id": "https://mhmarketing.vercel.app/#website",
-        "url": "https://mhmarketing.vercel.app",
-        "name": "MH Marketing — Haider Ali Digital Marketing Portfolio",
-        "description": "Explore verified digital marketing case studies, certificates, and reviews by Haider Ali.",
+        "@id": "https://www.guestnexa.com/#website",
+        "url": "https://www.guestnexa.com",
+        "name": "GuestNexa — Guest Posting & Link Building Agency",
+        "description": "Explore premium Guest Posting, Link Building, and Off-Page SEO case studies and services by Attia Awais.",
         "publisher": {
-          "@id": "https://mhmarketing.vercel.app/#organization"
+          "@id": "https://www.guestnexa.com/#organization"
         },
         "inLanguage": "en-US"
       },
       {
         "@type": "FAQPage",
-        "@id": "https://mhmarketing.vercel.app/#faq",
+        "@id": "https://www.guestnexa.com/#faq",
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What services does Haider Ali (MH Marketing) specialize in?",
+            "name": "What services does GuestNexa specialize in?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Haider Ali specializes in Meta Ads (Facebook & Instagram), Google Search & Display Ads, Search Engine Optimization (SEO), Social Media Management, Creative Ad Strategy, and Direct-to-WhatsApp Lead Generation Funnels."
+              "text": "GuestNexa specializes in Guest Posting on high-DA real traffic websites, custom Link Building campaigns, and comprehensive Off-Page SEO optimization."
             }
           },
           {
             "@type": "Question",
-            "name": "Which countries and markets does Haider Ali serve?",
+            "name": "Who is the founder of GuestNexa?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Haider Ali manages multi-platform digital marketing campaigns for commercial businesses across Pakistan, United Kingdom (UK), United States (USA), Dubai / UAE, and Saudi Arabia (KSA)."
+              "text": "Attia Awais is the Founder of GuestNexa and an Off-Page SEO Expert with 3+ years of professional experience."
             }
           },
           {
             "@type": "Question",
-            "name": "How much experience does Haider Ali have in digital marketing?",
+            "name": "Are the backlinks provided by GuestNexa permanent and dofollow?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Haider Ali brings over 5+ years of verified digital marketing expertise managing active commercial pages, high-ROAS paid advertising budgets, and scalable lead pipelines."
+              "text": "Yes, 100% of our editorial guest post links are permanent, contextual, dofollow, and placed on real niche-relevant websites with clean backlink profiles."
             }
           },
           {
             "@type": "Question",
-            "name": "How can I contact Haider Ali for an instant marketing consultation?",
+            "name": "How can I contact Attia Awais for an instant SEO consultation?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "You can reach Haider Ali directly on WhatsApp at +92 331 2018 512, via email at mhmarketing04@gmail.com, or through the instant project inquiry form on his portfolio."
+              "text": "You can reach Attia Awais directly on WhatsApp at 03126166818 (+923126166818) or via email at guestnexa@gmail.com."
             }
           }
         ]

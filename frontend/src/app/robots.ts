@@ -14,7 +14,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"]
       }
     ],
-    sitemap: "https://mhmarketing.vercel.app/sitemap.xml",
-    host: "https://mhmarketing.vercel.app"
+    sitemap: "https://www.guestnexa.com/sitemap.xml",
+    host: "https://www.guestnexa.com"
   };
 }

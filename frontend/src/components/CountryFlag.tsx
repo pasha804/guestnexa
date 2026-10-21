@@ -1,7 +1,7 @@
 import React from "react";
 
 interface CountryFlagProps {
-  code: "PK" | "GB" | "US" | "AE" | "SA";
+  code: "PK" | "GB" | "US" | "AE" | "SA" | "CA";
   name: string;
   className?: string;
   size?: number;
@@ -136,6 +136,27 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
           />
           {/* Sword */}
           <path d="M15,26 H45 M17,24 V28" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" />
+        </svg>
+      );
+
+    case "CA":
+      // Canada Flag SVG
+      return (
+        <svg
+          width={width}
+          height={height}
+          viewBox="0 0 60 40"
+          className={`rounded-sm overflow-hidden shadow-sm inline-block ${className}`}
+          aria-label={name}
+        >
+          <rect width="15" height="40" fill="#FF0000" />
+          <rect width="30" height="40" x="15" fill="#FFFFFF" />
+          <rect width="15" height="40" x="45" fill="#FF0000" />
+          {/* Stylized maple leaf */}
+          <polygon
+            points="30,8 32,15 37,13 35,18 41,21 38,24 39,28 33,27 32,32 30,32 29,32 28,27 22,28 23,24 20,21 26,18 24,13 29,15"
+            fill="#FF0000"
+          />
         </svg>
       );
 

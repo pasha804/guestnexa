@@ -1,3 +1,4 @@
+
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
@@ -17,8 +18,8 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#020612",
-  colorScheme: "dark",
+  themeColor: "#FFFFFF",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -27,48 +28,45 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Haider Ali | Digital Marketing Expert | MH Marketing",
-    template: "%s | MH Marketing"
+    default: "GuestNexa | Guest Posting, Link Building & Off-Page SEO Agency",
+    template: "%s | GuestNexa"
   },
   description:
-    "Haider Ali is an accredited Digital Marketing Expert with 5+ years of verified results in Meta Ads, Google Ads, SEO, Social Media Management, and High-ROI Lead Generation across Pakistan, UK, USA, UAE & Saudi Arabia.",
+    "Attia Awais is an Off-Page SEO Expert and Founder of GuestNexa. We specialize in high-authority Guest Posting, Link Building, and Off-Page SEO services to skyrocket your search rankings and domain authority.",
   keywords: [
-    "Digital Marketing Expert",
-    "Digital Marketing Expert Pakistan",
-    "Digital Marketing Islamabad",
-    "Haider Ali Digital Marketing",
-    "MH Marketing",
-    "Facebook Ads Expert Pakistan",
-    "Meta Ads Specialist",
-    "Instagram Marketing Pakistan",
-    "Google Ads Expert",
-    "SEO Expert Pakistan",
-    "Lead Generation Specialist",
-    "Social Media Management Pakistan",
-    "Digital Marketing Consultant UAE",
-    "E-commerce Growth Marketing",
-    "Paid Ads ROI Specialist",
-    "Digital Growth Consultant",
-    "Meta Pixel CAPI Expert",
-    "Performance Marketing Specialist"
+    "Guest Posting Services",
+    "Link Building Expert",
+    "Off-Page SEO Specialist",
+    "Attia Awais",
+    "GuestNexa",
+    "High DA Backlinks",
+    "Editorial Backlinks",
+    "White Hat Link Building",
+    "SEO Outreach Specialist",
+    "Guest Posting Agency Pakistan",
+    "Guest Posting Lahore",
+    "Dofollow Guest Posts",
+    "Domain Authority Increase",
+    "Search Engine Rankings",
+    "Off-Page SEO Expert Pakistan"
   ],
-  authors: [{ name: "Haider Ali", url: "https://mhmarketing.vercel.app" }],
-  creator: "Haider Ali",
-  publisher: "MH Marketing",
-  applicationName: "MH Marketing Portfolio",
+  authors: [{ name: "Attia Awais", url: "https://www.guestnexa.com" }],
+  creator: "Attia Awais",
+  publisher: "GuestNexa",
+  applicationName: "GuestNexa Agency",
   generator: "Next.js",
-  category: "Digital Marketing",
+  category: "Search Engine Optimization",
   formatDetection: {
     email: false,
     address: false,
     telephone: false
   },
-  metadataBase: new URL("https://mhmarketing.vercel.app"),
+  metadataBase: new URL("https://www.guestnexa.com"),
   alternates: {
-    canonical: "https://mhmarketing.vercel.app",
+    canonical: "https://www.guestnexa.com",
     languages: {
-      "en-US": "https://mhmarketing.vercel.app",
-      "ur-PK": "https://mhmarketing.vercel.app"
+      "en-US": "https://www.guestnexa.com",
+      "ur-PK": "https://www.guestnexa.com"
     }
   },
   robots: {
@@ -85,54 +83,46 @@ export const metadata: Metadata = {
     }
   },
   openGraph: {
-    title: "Haider Ali | Digital Marketing Expert | MH Marketing",
+    title: "GuestNexa — Guest Posting, Link Building & Off-Page SEO Agency",
     description:
-      "Turning online attention into measurable business growth. Meta Ads, Google Ads, SEO, and High-ROI Lead Generation across Pakistan, UK, USA, UAE & Saudi Arabia.",
-    url: "https://mhmarketing.vercel.app",
-    siteName: "MH Marketing",
+      "Attia Awais, Founder of GuestNexa. Helping businesses build high-quality backlinks, increase website authority, and achieve #1 Google rankings.",
+    url: "https://www.guestnexa.com",
+    siteName: "GuestNexa",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5",
-        secureUrl: "https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5",
+        url: "https://www.guestnexa.com/images/og-logo.png?v=logo-gn1",
+        secureUrl: "https://www.guestnexa.com/images/og-logo.png?v=logo-gn1",
         width: 1200,
         height: 630,
-        alt: "MH Marketing — Haider Ali Digital Marketing Expert Official Logo",
-        type: "image/png"
-      },
-      {
-        url: "https://mhmarketing.vercel.app/images/logo/og-logo-square.png?v=logo-v5",
-        secureUrl: "https://mhmarketing.vercel.app/images/logo/og-logo-square.png?v=logo-v5",
-        width: 800,
-        height: 800,
-        alt: "MH Marketing Official Logo",
+        alt: "GuestNexa — Attia Awais Off-Page SEO Agency",
         type: "image/png"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Haider Ali | Digital Marketing Expert | MH Marketing",
+    title: "GuestNexa | Attia Awais — Off-Page SEO Expert",
     description:
-      "Turning online attention into measurable business growth. Meta Ads, Google Ads, SEO, and High-ROI Lead Generation across Pakistan, UK, USA, UAE & Saudi Arabia.",
-    images: ["https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5"],
-    creator: "@mhmarketingglobal"
+      "Specialized in Guest Posting, Link Building, and Off-Page SEO. High-DA backlinks that drive sustainable organic traffic.",
+    images: ["https://www.guestnexa.com/images/og-logo.png?v=logo-gn1"],
+    creator: "@GuestNexa"
   },
   icons: {
     icon: [
-      { url: "/images/logo/mh-marketing-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/images/logo/mh-marketing-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/images/logo/mh-marketing-512.png", sizes: "512x512", type: "image/png" }
+      { url: "/images/logo/guestnexa-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/logo/guestnexa-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/images/logo/guestnexa-512.png", sizes: "512x512", type: "image/png" }
     ],
-    shortcut: "/images/logo/mh-marketing-192.png",
-    apple: "/images/logo/mh-marketing-192.png"
+    shortcut: "/images/logo/guestnexa-192.png",
+    apple: "/images/logo/guestnexa-192.png"
   },
   other: {
-    "geo.region": "PK-IS",
-    "geo.placename": "Islamabad",
-    "geo.position": "33.6844;73.0479",
-    "ICBM": "33.6844, 73.0479"
+    "geo.region": "PK-PB",
+    "geo.placename": "Lahore",
+    "geo.position": "31.5204;74.3587",
+    "ICBM": "31.5204, 74.3587"
   }
 };
 
@@ -142,17 +132,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} scroll-smooth dark`}>
+    <html lang="en" className={`${jakarta.variable} scroll-smooth`}>
       <head>
         <StructuredData />
-        <meta property="og:image" content="https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5" />
-        <meta property="og:image:secure_url" content="https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5" />
+        <meta property="og:image" content="https://www.guestnexa.com/images/og-logo.png?v=logo-gn1" />
+        <meta property="og:image:secure_url" content="https://www.guestnexa.com/images/og-logo.png?v=logo-gn1" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <link rel="image_src" href="https://mhmarketing.vercel.app/images/og-logo.png?v=logo-v5" />
-        <link rel="icon" href="/images/logo/mh-marketing-32.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/images/logo/mh-marketing-192.png" />
+        <link rel="image_src" href="https://www.guestnexa.com/images/og-logo.png?v=logo-gn1" />
+        <link rel="icon" href="/images/logo/guestnexa-32.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/images/logo/guestnexa-192.png" />
         <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
         <meta httpEquiv="Pragma" content="no-cache" />
         <meta httpEquiv="Expires" content="0" />
@@ -160,7 +150,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body
-        className="font-sans bg-[#020612] text-white selection:bg-[#D4AF37]/35 selection:text-white min-h-screen flex flex-col antialiased relative"
+        className="font-sans bg-white text-[#182A52] selection:bg-[#FFB719]/30 selection:text-[#182A52] min-h-screen flex flex-col antialiased relative"
         suppressHydrationWarning
         data-gramm="false"
         data-gramm_editor="false"
@@ -169,9 +159,9 @@ export default function RootLayout({
         <CinematicBackground />
         <SkipLink />
         <Header />
-        <div id="main-content" className="flex-1 w-full relative z-10">
+        <main id="main-content" className="flex-1 w-full relative z-10">
           {children}
-        </div>
+        </main>
         <Footer />
         <FloatingWhatsApp />
         <LogoAnimationIntro />

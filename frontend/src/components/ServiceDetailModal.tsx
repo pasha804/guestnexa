@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { X, CheckCircle2, TrendingUp, Sparkles, ArrowUpRight, ShieldCheck, Zap } from "lucide-react";
 import { BrandIcon } from "./BrandIcon";
+import { OWNER_INFO } from "../data/portfolioData";
 
 export interface ServiceDetailData {
   id: string;
@@ -36,7 +37,7 @@ interface ServiceDetailModalProps {
   isOpen: boolean;
   onClose: () => void;
   service: ServiceDetailData | null;
-  onSelectServiceForContact: (title: string) => void;
+  onSelectServiceForContact?: (title: string) => void;
 }
 
 export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
@@ -199,10 +200,10 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
         </div>
 
         {/* Modal Bottom Sticky Action Bar */}
-        <div className="p-4 sm:p-5 border-t border-white/10 bg-[#020614]/95 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+        <div className="p-4 sm:p-5 border-t border-slate-200 bg-slate-50/95 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
           <div className="text-center sm:text-left">
-            <span className="text-[11px] text-slate-400 block font-medium">Ready to scale your business?</span>
-            <span className="text-xs font-bold text-white">Direct communication with Haider Ali</span>
+            <span className="text-[11px] text-slate-500 block font-medium">Ready to rank #1 on Google?</span>
+            <span className="text-xs font-bold text-[#182A52]">Direct communication with Attia Awais, Founder</span>
           </div>
 
           <div className="flex items-center gap-2.5 w-full sm:w-auto">
@@ -210,18 +211,18 @@ export const ServiceDetailModal: React.FC<ServiceDetailModalProps> = ({
               href="#contact"
               onClick={() => {
                 onClose();
-                onSelectServiceForContact(service.title);
+                if (onSelectServiceForContact) onSelectServiceForContact(service.title);
               }}
-              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-[#D4AF37]/40 text-xs font-bold text-slate-200 text-center transition-all"
+              className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-xs font-bold text-[#182A52] text-center transition-all shadow-sm"
             >
               Book Consultation
             </Link>
 
             <a
-              href={`https://wa.me/923312018512?text=${encodeURIComponent(service.whatsappMessage)}`}
+              href={`https://wa.me/${OWNER_INFO.phoneClean}?text=${encodeURIComponent(service.whatsappMessage)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-black text-xs flex items-center justify-center gap-2 shadow-[0_0_22px_rgba(37,211,102,0.45)] hover:shadow-[0_0_30px_rgba(37,211,102,0.7)] transition-all cursor-pointer"
+              className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-black text-xs flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(37,211,102,0.35)] transition-all cursor-pointer"
             >
               <BrandIcon name="whatsapp" size={17} mode="monochrome" className="text-white fill-white shrink-0" />
               <span className="text-white font-black tracking-wide">Inquire on WhatsApp</span>

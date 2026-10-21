@@ -9,6 +9,24 @@ export type ServiceCategory =
   | "E-commerce / Digital Growth"
   | "Other";
 
+export interface ProjectWorkPillar {
+  title: string;
+  description: string;
+  highlights: string[];
+}
+
+export interface ProjectWorkDetails {
+  adCampaigns: ProjectWorkPillar;
+  pageManagement: ProjectWorkPillar;
+  creativeDesign: ProjectWorkPillar;
+  clientResults: ProjectWorkPillar;
+}
+
+export interface ProjectMetric {
+  label: string;
+  value: string;
+}
+
 export interface Project {
   id: string;
   number: string;
@@ -23,6 +41,9 @@ export interface Project {
   gridType: "large" | "medium";
   featured: boolean;
   sourceStatus: string;
+  highlightTag?: string;
+  workDetails?: ProjectWorkDetails;
+  keyMetrics?: ProjectMetric[];
 }
 
 export interface Certificate {

@@ -9,25 +9,26 @@ import {
   User,
   ExternalLink,
   RotateCcw,
-  MessageCircle,
   HelpCircle,
-  ShieldCheck
+  Zap
 } from "lucide-react";
 import { BrandIcon } from "./BrandIcon";
 import { OWNER_INFO } from "../data/portfolioData";
+import { matchInstantAnswer } from "../data/aiKnowledge";
 
 interface Message {
   id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: string;
+  isStreaming?: boolean;
 }
 
 const QUICK_PROMPTS = [
-  { label: "👤 Who is Haider Ali?", text: "Haider Ali kaun hain aur unka experience kya hai?" },
-  { label: "🚀 How to start Meta Ads?", text: "Facebook aur Instagram Ads start karne ke liye mujhe kya provide karna hoga?" },
-  { label: "💰 Pricing & Packages", text: "Aapke marketing packages aur pricing kya hai?" },
-  { label: "🎯 Services Offered", text: "MH Marketing kaun kaun si services provide karta hai?" }
+  { label: "👤 Who is Attia Awais?", text: "Attia Awais kaun hain aur GuestNexa kya services deti hai?" },
+  { label: "🚀 How does Guest Posting work?", text: "Guest posting aur high-DA backlinks se Google ranking kaise improve hoti hai?" },
+  { label: "💰 Pricing & Packages", text: "GuestNexa ke backlink packages aur rates kya hain?" },
+  { label: "🎯 Dofollow Backlinks & DA", text: "Kya backlinks dofollow aur Google par indexed honge?" }
 ];
 
 interface AiAssistantModalProps {
@@ -41,15 +42,17 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
       id: "welcome-1",
       role: "assistant",
       content:
-        "Walaikum Assalam / Hello! 👋 Main **MH Marketing AI Assistant** hoon — Haider Ali ka intelligent consultant. \n\nAap mujh se **Roman Urdu**, **English**, ya **Urdu** mein Meta Ads, services, strategy, ya packages ke mutaliq kuch bhi pooch sakte hain. Main aapko realistic guide karunga!",
+        "Walaikum Assalam / Hello! 👋 Main **GuestNexa AI Assistant** hoon — Attia Awais (Founder of GuestNexa) ka intelligent SEO consultant. \n\nAap mujh se **Roman Urdu**, **English**, ya **Urdu** mein High-DA Guest Posting, Link Building, Off-Page SEO, pricing, ya ranking strategy ke mutaliq sawal pooch sakte hain. Main aapko instant aur realistic mashwara dunga!",
       timestamp: "Just now"
     }
   ]);
 
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -60,28 +63,88 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
       setTimeout(() => {
         inputRef.current?.focus();
         scrollToBottom();
-      }, 200);
+      }, 150);
     }
   }, [isOpen]);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isLoading]);
+  }, [messages, isLoading, isStreaming]);
+
+  // Clean up any running typing timer on unmount
+  useEffect(() => {
+    return () => {
+      if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+    };
+  }, []);
 
   const handleSend = async (userText?: string) => {
     const textToSend = (userText || input).trim();
-    if (!textToSend || isLoading) return;
+    if (!textToSend || isLoading || isStreaming) return;
+
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+      typingIntervalRef.current = null;
+    }
+
+    const currentTime = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
     const userMessage: Message = {
       id: `user-${Date.now()}`,
       role: "user",
       content: textToSend,
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      timestamp: currentTime
     };
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
+
+    // ⚡ SPEED TIER 1: ZERO-LATENCY INSTANT KNOWLEDGE ENGINE (< 20ms to start streaming)
+    const instantAnswer = matchInstantAnswer(textToSend);
+    if (instantAnswer) {
+      setIsStreaming(true);
+      const botMsgId = `bot-${Date.now()}`;
+      const botMessage: Message = {
+        id: botMsgId,
+        role: "assistant",
+        content: "",
+        timestamp: currentTime,
+        isStreaming: true
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+
+      // Ultra-smooth typewriter streaming in fast bursts of words
+      const words = instantAnswer.split(" ");
+      let currentText = "";
+      let wordIdx = 0;
+
+      typingIntervalRef.current = setInterval(() => {
+        if (wordIdx < words.length) {
+          const chunk = words.slice(wordIdx, wordIdx + 3).join(" ");
+          currentText += (currentText ? " " : "") + chunk;
+          wordIdx += 3;
+
+          setMessages((prev) =>
+            prev.map((msg) =>
+              msg.id === botMsgId
+                ? { ...msg, content: currentText, isStreaming: wordIdx < words.length }
+                : msg
+            )
+          );
+        } else {
+          if (typingIntervalRef.current) clearInterval(typingIntervalRef.current);
+          typingIntervalRef.current = null;
+          setIsStreaming(false);
+        }
+      }, 16);
+
+      return;
+    }
+
+    // ⚡ SPEED TIER 2: HIGH-SPEED BACKEND AI STREAMING
     setIsLoading(true);
+    const botMsgId = `bot-${Date.now()}`;
 
     try {
       const historyToSend = [...messages, userMessage].map((m) => ({
@@ -92,96 +155,186 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: historyToSend })
+        body: JSON.stringify({ messages: historyToSend, stream: true })
       });
 
       if (!res.ok) {
         throw new Error("Chat response failed");
       }
 
-      const data = await res.json();
-      const botReply =
-        data.reply ||
-        "Aap direct Haider Ali se WhatsApp par rabta kar sakte hain: +92 331 2018 512 (https://wa.me/923312018512).";
-
-      const botMessage: Message = {
-        id: `bot-${Date.now()}`,
+      // Initial bot placeholder in messages
+      const botPlaceholder: Message = {
+        id: botMsgId,
         role: "assistant",
-        content: botReply,
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        content: "",
+        timestamp: currentTime,
+        isStreaming: true
       };
 
-      setMessages((prev) => [...prev, botMessage]);
+      setMessages((prev) => [...prev, botPlaceholder]);
+      setIsLoading(false);
+      setIsStreaming(true);
+
+      if (res.body) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let accumulatedText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          if (chunk) {
+            accumulatedText += chunk;
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === botMsgId
+                  ? { ...msg, content: accumulatedText, isStreaming: true }
+                  : msg
+              )
+            );
+          }
+        }
+
+        // If response was somehow empty, fill default
+        if (!accumulatedText.trim()) {
+          accumulatedText =
+            `Walaikum Assalam / Hello! Attia Awais is available directly on WhatsApp at ${OWNER_INFO.phone} for instant consultations, guest post inventories, and backlink packages. [Click here to Chat on WhatsApp](${OWNER_INFO.whatsappUrl}).`;
+        }
+
+        setMessages((prev) =>
+          prev.map((msg) =>
+            msg.id === botMsgId
+              ? { ...msg, content: accumulatedText, isStreaming: false }
+              : msg
+          )
+        );
+      }
     } catch {
       const fallbackMessage: Message = {
         id: `bot-fallback-${Date.now()}`,
         role: "assistant",
         content:
-          "Network connectivity issue ki wajah se response generate nahi ho saka. Lekin aap foran Haider Ali se direct WhatsApp par rabta kar sakte hain:\n\n👉 **WhatsApp: +92 331 2018 512**\n[Chat Directly on WhatsApp](https://wa.me/923312018512)",
-        timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+          `Aapka message mil gaya hai! GuestNexa high-DA guest posting aur white-hat link building services provide karti hai. Aap direct Attia Awais se WhatsApp par rabta kar sakte hain:\n\n👉 **WhatsApp: ${OWNER_INFO.phone}**\n[Chat Directly on WhatsApp](${OWNER_INFO.whatsappUrl})`,
+        timestamp: currentTime,
+        isStreaming: false
       };
-      setMessages((prev) => [...prev, fallbackMessage]);
+      setMessages((prev) => [...prev.filter((m) => m.id !== botMsgId), fallbackMessage]);
     } finally {
       setIsLoading(false);
+      setIsStreaming(false);
     }
   };
 
   const clearChat = () => {
+    if (typingIntervalRef.current) {
+      clearInterval(typingIntervalRef.current);
+      typingIntervalRef.current = null;
+    }
+    setIsLoading(false);
+    setIsStreaming(false);
     setMessages([
       {
         id: "welcome-reset",
         role: "assistant",
         content:
-          "Chat reset kar di gayi hai! Aap mujh se services, ads requirements, ya business packages ke mutaliq sawal pooch sakte hain.",
+          "Chat reset kar di gayi hai! Aap mujh se Guest Posting, Link Building, high-DA backlinks, ya SEO packages ke mutaliq sawal pooch sakte hain.",
         timestamp: "Just now"
       }
     ]);
   };
 
-  // Render markdown formatting simply (bold, links, bullet points)
-  const formatMessageText = (content: string) => {
+  // Render markdown formatting simply (bold, links, bullet points, and WhatsApp action buttons)
+  const formatMessageText = (content: string, isStreamingMessage?: boolean) => {
     const lines = content.split("\n");
-    return lines.map((line, idx) => {
-      // Check for bullet points
-      const isBullet = line.trim().startsWith("- ") || line.trim().startsWith("• ") || /^\d+\./.test(line.trim());
-      const cleanLine = line.replace(/^[-•]\s*/, "");
+    return (
+      <div className="space-y-1">
+        {lines.map((line, idx) => {
+          // Check for bullet points
+          const isBullet = line.trim().startsWith("- ") || line.trim().startsWith("• ") || /^\d+\./.test(line.trim());
+          const cleanLine = line.replace(/^[-•]\s*/, "");
 
-      // Handle simple bold tags **text**
-      const parts = cleanLine.split(/(\*\*.*?\*\*)/g);
+          // Parse markdown links [Text](URL)
+          const linkRegex = /\[(.*?)\]\((https?:\/\/[^\s)]+)\)/g;
+          const segments: Array<{ type: "text" | "link"; text: string; url?: string }> = [];
+          let lastIndex = 0;
+          let match;
 
-      return (
-        <div key={idx} className={`${isBullet ? "flex items-start gap-1.5 ml-2 my-0.5" : "my-0.5"}`}>
-          {isBullet && <span className="text-[#D4AF37] font-black shrink-0">•</span>}
-          <span>
-            {parts.map((part, pIdx) => {
-              if (part.startsWith("**") && part.endsWith("**")) {
-                return (
-                  <strong key={pIdx} className="text-[#FFF4C2] font-extrabold">
-                    {part.slice(2, -2)}
-                  </strong>
-                );
-              }
-              // Check for links
-              if (part.includes("https://wa.me/")) {
-                return (
-                  <a
-                    key={pIdx}
-                    href={OWNER_INFO.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-emerald-400 font-bold underline hover:text-emerald-300 ml-1"
-                  >
-                    <span>Open WhatsApp</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                );
-              }
-              return part;
-            })}
-          </span>
-        </div>
-      );
-    });
+          while ((match = linkRegex.exec(cleanLine)) !== null) {
+            if (match.index > lastIndex) {
+              segments.push({
+                type: "text",
+                text: cleanLine.substring(lastIndex, match.index)
+              });
+            }
+            segments.push({
+              type: "link",
+              text: match[1],
+              url: match[2]
+            });
+            lastIndex = match.index + match[0].length;
+          }
+
+          if (lastIndex < cleanLine.length) {
+            segments.push({
+              type: "text",
+              text: cleanLine.substring(lastIndex)
+            });
+          }
+
+          return (
+            <div key={idx} className={`${isBullet ? "flex items-start gap-1.5 ml-2 my-0.5" : "my-0.5"}`}>
+              {isBullet && <span className="text-[#D4AF37] font-black shrink-0 mt-0.5">•</span>}
+              <div className="flex-1 flex flex-wrap items-center gap-x-1 gap-y-0.5">
+                {segments.map((seg, sIdx) => {
+                  if (seg.type === "link" && seg.url) {
+                    const isWhatsApp = seg.url.includes("wa.me");
+                    return (
+                      <a
+                        key={sIdx}
+                        href={seg.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 my-1 rounded-xl text-xs font-bold transition-all shadow-sm ${
+                          isWhatsApp
+                            ? "bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white shadow-[0_0_12px_rgba(16,185,129,0.35)]"
+                            : "bg-[#091D4A] hover:bg-[#122A63] text-[#38BDF8] border border-[#38BDF8]/40"
+                        }`}
+                      >
+                        {isWhatsApp && <BrandIcon name="whatsapp" size={13} />}
+                        <span>{seg.text || "Chat on WhatsApp"}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    );
+                  }
+
+                  // Handle bold tags within text segment
+                  const boldParts = seg.text.split(/(\*\*.*?\*\*)/g);
+                  return (
+                    <span key={sIdx}>
+                      {boldParts.map((part, pIdx) => {
+                        if (part.startsWith("**") && part.endsWith("**")) {
+                          return (
+                            <strong key={pIdx} className="text-[#FFF4C2] font-extrabold">
+                              {part.slice(2, -2)}
+                            </strong>
+                          );
+                        }
+                        return part;
+                      })}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+        {isStreamingMessage && (
+          <span className="inline-block w-2 h-3.5 bg-[#D4AF37] ml-0.5 animate-pulse align-middle" />
+        )}
+      </div>
+    );
   };
 
   if (!isOpen) return null;
@@ -190,49 +343,50 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="MH Marketing AI Assistant"
-      className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 flex flex-col w-full sm:w-[420px] md:w-[460px] h-full sm:h-[620px] max-h-full sm:max-h-[85vh] bg-[#03091B]/95 sm:rounded-3xl border border-[#D4AF37]/45 shadow-[0_20px_60px_rgba(2,6,18,0.98),0_0_35px_rgba(212,175,55,0.3)] backdrop-blur-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+      aria-label="GuestNexa AI Assistant"
+      className="fixed inset-0 sm:inset-auto sm:bottom-24 sm:right-6 z-50 flex flex-col w-full sm:w-[420px] md:w-[460px] h-full sm:h-[620px] max-h-full sm:max-h-[85vh] bg-white sm:rounded-3xl border-2 border-slate-200 shadow-[0_20px_60px_rgba(24,42,82,0.25)] backdrop-blur-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200 text-[#182A52]"
     >
-      {/* Top Specular Gold Edge Highlight */}
-      <div className="absolute top-0 inset-x-0 h-[2.5px] bg-gradient-to-r from-transparent via-[#F3CF7A] to-transparent z-10" />
+      {/* Top Border Accent */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-[#2587C4] via-[#FFB719] to-[#182A52] z-10" />
 
       {/* Header Bar */}
-      <div className="p-4 sm:p-4.5 bg-[#050E28]/95 border-b border-[#D4AF37]/25 flex items-center justify-between shrink-0 relative z-10 shadow-sm">
+      <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between shrink-0 relative z-10 shadow-sm">
         <div className="flex items-center gap-3">
-          {/* AI Avatar with Glowing Aura */}
+          {/* AI Avatar */}
           <div className="relative">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#0B1E4A] via-[#122A63] to-[#040C22] border-2 border-[#D4AF37]/70 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.4)]">
-              <Sparkles className="w-5 h-5 text-[#F3CF7A]" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#2587C4] to-[#182A52] border border-[#2587C4]/40 flex items-center justify-center text-white shadow-sm">
+              <Sparkles className="w-5 h-5 text-[#FFB719]" />
             </div>
             {/* Online Live Status Indicator */}
-            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#25D366] border-2 border-[#03091B] animate-pulse shadow-sm" />
+            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#25D366] border-2 border-white animate-pulse shadow-sm" />
           </div>
 
           <div>
             <div className="flex items-center gap-1.5">
-              <h3 className="text-sm font-extrabold text-white tracking-wide">
-                MH Marketing AI
+              <h3 className="text-sm font-extrabold text-[#182A52] tracking-wide">
+                GuestNexa AI
               </h3>
-              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-[#D4AF37]/15 text-[#FFF4C2] border border-[#D4AF37]/35 uppercase tracking-wider">
-                Official
+              <span className="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-[#2587C4] border border-blue-200 uppercase tracking-wider flex items-center gap-0.5">
+                <Zap className="w-2.5 h-2.5 text-[#2587C4]" />
+                <span>Instant</span>
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
-              <span>Haider Ali’s Digital Consultant</span>
+            <p className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+              <span>Attia Awais’s SEO Assistant</span>
               <span>•</span>
-              <span className="text-emerald-400 font-semibold">Online</span>
+              <span className="text-emerald-600 font-semibold">Online &amp; Fast</span>
             </p>
           </div>
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1">
           <button
             type="button"
             onClick={clearChat}
             title="Reset conversation"
             aria-label="Reset conversation"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-slate-400 hover:text-[#182A52] hover:bg-slate-200 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
@@ -242,7 +396,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
             onClick={onClose}
             title="Close Assistant"
             aria-label="Close Assistant"
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-slate-400 hover:text-[#182A52] hover:bg-slate-200 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -254,19 +408,19 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
         href={OWNER_INFO.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="px-4 py-2 bg-gradient-to-r from-emerald-950/60 to-[#040C22] border-b border-emerald-500/25 flex items-center justify-between text-[11px] text-emerald-300 hover:text-white transition-all group shrink-0"
+        className="px-4 py-2 bg-emerald-50 border-b border-emerald-200 flex items-center justify-between text-[11px] text-emerald-800 hover:bg-emerald-100 transition-all group shrink-0"
       >
-        <span className="flex items-center gap-2">
-          <BrandIcon name="whatsapp" size={14} />
-          <span>Need immediate quotation? Message Haider directly:</span>
+        <span className="flex items-center gap-2 font-medium">
+          <BrandIcon name="whatsapp" size={14} mode="monochrome" className="text-emerald-600 fill-emerald-600" />
+          <span>Need publisher lists? Message Attia directly:</span>
         </span>
-        <span className="font-bold underline text-white group-hover:text-emerald-400 shrink-0">
-          +92 331 2018 512 ↗
+        <span className="font-bold underline text-emerald-700 group-hover:text-emerald-900 shrink-0">
+          {OWNER_INFO.phone} ↗
         </span>
       </a>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs sm:text-[13px] leading-relaxed select-text">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 text-xs sm:text-[13px] leading-relaxed select-text bg-slate-50/50">
         {messages.map((m) => (
           <div
             key={m.id}
@@ -278,24 +432,24 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
             <div
               className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 text-xs shadow-sm ${
                 m.role === "user"
-                  ? "bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#FFF4C2]"
-                  : "bg-[#091D4A] border border-[#38BDF8]/40 text-[#38BDF8]"
+                  ? "bg-[#2587C4] text-white"
+                  : "bg-white border border-slate-200 text-[#182A52]"
               }`}
             >
-              {m.role === "user" ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
+              {m.role === "user" ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5 text-[#2587C4]" />}
             </div>
 
             {/* Bubble */}
             <div
-              className={`max-w-[84%] sm:max-w-[80%] rounded-2xl p-3 sm:p-3.5 shadow-md ${
+              className={`max-w-[84%] sm:max-w-[80%] rounded-2xl p-3 sm:p-3.5 shadow-sm ${
                 m.role === "user"
-                  ? "bg-gradient-to-r from-[#1E40AF]/40 to-[#0F286E]/80 border border-[#D4AF37]/35 text-white rounded-tr-none"
-                  : "bg-[#050F2C]/90 border border-white/10 text-slate-200 rounded-tl-none space-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+                  ? "bg-[#182A52] text-white rounded-tr-none"
+                  : "bg-white border border-slate-200 text-slate-700 rounded-tl-none space-y-1 shadow-sm"
               }`}
             >
-              {formatMessageText(m.content)}
+              {formatMessageText(m.content, m.isStreaming)}
               <div
-                className={`text-[9px] mt-1.5 opacity-60 text-right ${
+                className={`text-[9px] mt-1.5 opacity-70 text-right ${
                   m.role === "user" ? "text-slate-300" : "text-slate-400"
                 }`}
               >
@@ -307,16 +461,17 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
 
         {/* Loading Indicator */}
         {isLoading && (
-          <div className="flex items-start gap-2.5">
-            <div className="w-7 h-7 rounded-xl bg-[#091D4A] border border-[#38BDF8]/40 flex items-center justify-center shrink-0">
-              <Bot className="w-3.5 h-3.5 text-[#38BDF8]" />
+          <div className="flex items-start gap-2.5 animate-in fade-in duration-150">
+            <div className="w-7 h-7 rounded-xl bg-white border border-slate-200 flex items-center justify-center shrink-0">
+              <Bot className="w-3.5 h-3.5 text-[#2587C4]" />
             </div>
-            <div className="bg-[#050F2C]/90 border border-white/10 rounded-2xl rounded-tl-none p-3.5 flex items-center gap-1.5 shadow-md">
-              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce" />
-              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce [animation-delay:0.15s]" />
-              <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-bounce [animation-delay:0.3s]" />
-              <span className="text-[11px] text-slate-400 font-medium ml-1.5">
-                AI is crafting a reply...
+            <div className="bg-white border border-slate-200 rounded-2xl rounded-tl-none p-3.5 flex items-center gap-1.5 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#2587C4] animate-bounce" />
+              <span className="w-2 h-2 rounded-full bg-[#FFB719] animate-bounce [animation-delay:0.15s]" />
+              <span className="w-2 h-2 rounded-full bg-[#182A52] animate-bounce [animation-delay:0.3s]" />
+              <span className="text-[11px] text-[#182A52] font-semibold ml-1.5 flex items-center gap-1">
+                <Zap className="w-3 h-3 text-[#FFB719]" />
+                <span>Formulating intelligent SEO response...</span>
               </span>
             </div>
           </div>
@@ -326,10 +481,10 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
       </div>
 
       {/* Quick Prompts Chips */}
-      <div className="px-3.5 py-2 bg-[#020716]/90 border-t border-white/5 shrink-0 overflow-x-auto no-scrollbar">
+      <div className="px-3 py-2 bg-white border-t border-slate-200 shrink-0 overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-1.5 w-max">
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-1 mr-1">
-            <HelpCircle className="w-3 h-3 text-[#D4AF37]" />
+          <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider flex items-center gap-1 mr-1">
+            <HelpCircle className="w-3 h-3 text-[#FFB719]" />
             <span>Quick:</span>
           </span>
           {QUICK_PROMPTS.map((q, idx) => (
@@ -337,8 +492,8 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
               key={idx}
               type="button"
               onClick={() => handleSend(q.text)}
-              disabled={isLoading}
-              className="px-2.5 py-1 rounded-full bg-[#071333] hover:bg-[#D4AF37]/20 border border-[#D4AF37]/30 hover:border-[#FFF4C2] text-[11px] text-slate-300 hover:text-white transition-all whitespace-nowrap cursor-pointer disabled:opacity-50"
+              disabled={isLoading || isStreaming}
+              className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-[#2587C4]/10 border border-slate-200 hover:border-[#2587C4] text-[11px] text-[#182A52] font-medium transition-all whitespace-nowrap cursor-pointer disabled:opacity-50"
             >
               {q.label}
             </button>
@@ -352,7 +507,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
           e.preventDefault();
           handleSend();
         }}
-        className="p-3 bg-[#050E28] border-t border-[#D4AF37]/25 flex items-center gap-2 shrink-0 relative z-10"
+        className="p-3 bg-white border-t border-slate-200 flex items-center gap-2 shrink-0 relative z-10"
       >
         <input
           ref={inputRef}
@@ -360,15 +515,15 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({ isOpen, onCl
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask in Roman Urdu, English, ya Urdu..."
-          disabled={isLoading}
-          className="flex-1 px-4 py-2.5 rounded-xl bg-[#020614] border border-[#D4AF37]/35 focus:border-[#FFF4C2] focus:ring-1 focus:ring-[#D4AF37]/50 text-white text-xs outline-none transition-all placeholder:text-slate-500 shadow-inner"
+          disabled={isLoading || isStreaming}
+          className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 focus:border-[#2587C4] focus:ring-1 focus:ring-[#2587C4] text-[#182A52] text-xs outline-none transition-all placeholder:text-slate-400"
         />
 
         <button
           type="submit"
-          disabled={!input.trim() || isLoading}
+          disabled={!input.trim() || isLoading || isStreaming}
           aria-label="Send message"
-          className="p-2.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#F3CF7A] hover:from-[#FFF4C2] hover:to-[#D4AF37] text-[#020614] font-black transition-all shadow-[0_0_15px_rgba(212,175,55,0.4)] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0"
+          className="p-2.5 rounded-xl bg-[#2587C4] hover:bg-[#1A6B9E] text-white font-black transition-all shadow-sm disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>

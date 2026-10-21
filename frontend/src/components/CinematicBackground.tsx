@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 
 export const CinematicBackground: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -13,57 +12,50 @@ export const CinematicBackground: React.FC = () => {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden select-none bg-white"
     >
-      {/* 01: Deep Midnight Sapphire Base Void */}
-      <div className="absolute inset-0 bg-[#020612]" />
+      {/* Crisp White Base with very light subtle background mesh */}
+      <div className="absolute inset-0 bg-white" />
 
-      {/* 02: User-Selected High-Impact Cinematic Background with Specular Gold Lines & Digital Icons */}
-      <div className="absolute inset-0 opacity-80 sm:opacity-85 transition-opacity duration-700">
-        <Image
-          src="/images/portfolio-clean-bg.webp"
-          alt="MH Marketing Cinematic Ambient Background"
-          fill
-          priority
-          sizes="100vw"
-          quality={90}
-          className="object-cover object-center"
-        />
-      </div>
+      {/* Subtle modern engineering dot grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.35]"
+        style={{
+          backgroundImage:
+            "radial-gradient(rgba(24, 42, 82, 0.12) 1px, transparent 1px)",
+          backgroundSize: "28px 28px"
+        }}
+      />
 
-      {/* 03: Soft Dark-Blue Gradient & Vignette Overlay to Guarantee 100% Text & Card Legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#020612]/75 via-[#020612]/35 to-[#020612]/85 mix-blend-multiply" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_40%,transparent_30%,rgba(2,6,18,0.75)_95%)]" />
+      {/* Soft Luminous Ambient Accents: Blue #2587C4 & Yellow #FFB719 */}
+      <div className="absolute -top-[10%] -left-[5%] w-[450px] sm:w-[700px] h-[450px] sm:h-[700px] rounded-full bg-[radial-gradient(circle,rgba(37,135,196,0.12)_0%,transparent_70%)] blur-[80px] sm:blur-[120px]" />
+      <div className="absolute top-[20%] -right-[5%] w-[400px] sm:w-[650px] h-[400px] sm:h-[650px] rounded-full bg-[radial-gradient(circle,rgba(255,183,25,0.12)_0%,transparent_70%)] blur-[75px] sm:blur-[110px]" />
+      <div className="hidden sm:block absolute top-[60%] -left-[10%] w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(24,42,82,0.06)_0%,transparent_70%)] blur-[100px]" />
+      <div className="hidden sm:block absolute -bottom-[10%] right-[10%] w-[650px] h-[650px] rounded-full bg-[radial-gradient(circle,rgba(37,135,196,0.10)_0%,transparent_70%)] blur-[120px]" />
 
-      {/* 04: Dynamic Ambient Glow Flares (Responsive for Mobile Battery & GPU) */}
-      <div className="absolute -top-[12%] left-1/4 w-[360px] sm:w-[750px] h-[360px] sm:h-[750px] rounded-full bg-[radial-gradient(circle,rgba(30,64,175,0.20)_0%,transparent_70%)] blur-[50px] sm:blur-[100px]" />
-      <div className="absolute top-[35%] -right-[8%] w-[320px] sm:w-[650px] h-[320px] sm:h-[650px] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.12)_0%,transparent_70%)] blur-[45px] sm:blur-[95px]" />
-      <div className="hidden sm:block absolute top-[70%] -left-[8%] w-[700px] h-[700px] rounded-full bg-[radial-gradient(circle,rgba(30,64,175,0.18)_0%,transparent_70%)] blur-[110px]" />
-      <div className="hidden sm:block absolute -bottom-[8%] right-1/4 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.12)_0%,transparent_70%)] blur-[120px]" />
-
-      {/* 05: Subtle Gold Particle Shimmer (Hydration-safe client render) */}
+      {/* Delicate floating shimmer beads */}
       {mounted && (
-        <div className="absolute inset-0 opacity-45">
+        <div className="absolute inset-0 opacity-40">
           {[
-            { top: "12%", left: "18%", delay: "0s", duration: "4.2s", size: "2.5px" },
-            { top: "22%", left: "78%", delay: "1.2s", duration: "5.1s", size: "3px" },
-            { top: "38%", left: "28%", delay: "2.4s", duration: "6s", size: "2px" },
-            { top: "48%", left: "88%", delay: "0.8s", duration: "4.5s", size: "2.5px" },
-            { top: "64%", left: "14%", delay: "1.8s", duration: "5.5s", size: "3px" },
-            { top: "76%", left: "68%", delay: "3s", duration: "4.8s", size: "2px" },
-            { top: "86%", left: "32%", delay: "1.5s", duration: "6.2s", size: "2.5px" },
-            { top: "94%", left: "84%", delay: "2.1s", duration: "5.1s", size: "3px" },
-          ].map((star, idx) => (
+            { top: "14%", left: "15%", delay: "0s", duration: "4.5s", size: "3px", color: "#2587C4" },
+            { top: "25%", left: "82%", delay: "1.2s", duration: "5.2s", size: "3.5px", color: "#FFB719" },
+            { top: "42%", left: "22%", delay: "2.1s", duration: "6s", size: "2.5px", color: "#182A52" },
+            { top: "55%", left: "88%", delay: "0.8s", duration: "4.8s", size: "3px", color: "#2587C4" },
+            { top: "72%", left: "12%", delay: "1.8s", duration: "5.5s", size: "3.5px", color: "#FFB719" },
+            { top: "85%", left: "70%", delay: "2.5s", duration: "5s", size: "3px", color: "#2587C4" }
+          ].map((bead, idx) => (
             <div
               key={idx}
-              className="absolute rounded-full bg-[#FFF4C2] animate-pulse shadow-[0_0_10px_rgba(212,175,55,0.85)]"
+              className="absolute rounded-full animate-pulse"
               style={{
-                top: star.top,
-                left: star.left,
-                width: star.size,
-                height: star.size,
-                animationDelay: star.delay,
-                animationDuration: star.duration,
+                top: bead.top,
+                left: bead.left,
+                width: bead.size,
+                height: bead.size,
+                backgroundColor: bead.color,
+                boxShadow: `0 0 8px ${bead.color}`,
+                animationDelay: bead.delay,
+                animationDuration: bead.duration
               }}
             />
           ))}

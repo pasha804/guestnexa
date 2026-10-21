@@ -8,53 +8,60 @@ import { OWNER_INFO } from "../data/portfolioData";
 export const SocialConnectSection: React.FC = () => {
   const socialChannels = [
     {
-      name: "Facebook",
-      handle: "@mhmarketingglobal",
+      name: "Facebook Page",
+      handle: "@attiaawaisseo",
       url: OWNER_INFO.socials.facebook,
       icon: "facebook" as const,
-      desc: "Updates, real client work & official announcements"
+      desc: "Official GuestNexa agency updates & SEO tips"
+    },
+    {
+      name: "Facebook Profile",
+      handle: "seoattiaawais",
+      url: OWNER_INFO.socials.facebookPersonal,
+      icon: "facebook" as const,
+      desc: "Personal insights from Founder Attia Awais"
     },
     {
       name: "Instagram",
-      handle: "@mhmarketingglobal",
+      handle: "@attiaawaisseo",
       url: OWNER_INFO.socials.instagram,
       icon: "instagram" as const,
-      desc: "Visual reels, creative design & marketing strategies"
+      desc: "SEO reels, ranking case studies & outreach wins"
     },
     {
       name: "LinkedIn",
-      handle: "Haider Ali",
+      handle: "Attia Bibi (Awais)",
       url: OWNER_INFO.socials.linkedin,
       icon: "linkedin" as const,
-      desc: "Professional insights, growth networking & B2B reach"
+      desc: "Outreach & Link Building Specialist network"
+    },
+    {
+      name: "WhatsApp Channel",
+      handle: "GuestNexa Community",
+      url: OWNER_INFO.socials.whatsappChannel,
+      icon: "whatsapp" as const,
+      desc: "Daily high-DA site lists and backlink opportunities"
     },
     {
       name: "YouTube",
-      handle: "@mhmarketingglobal",
+      handle: "@AttiaWrites",
       url: OWNER_INFO.socials.youtube,
       icon: "youtube" as const,
-      desc: "Video guides, marketing tactics & breakdowns"
+      desc: "In-depth Off-Page SEO tutorials & outreach guides"
     },
     {
-      name: "TikTok",
-      handle: "@mhmarketingglobal",
-      url: OWNER_INFO.socials.tiktok,
-      icon: "tiktok" as const,
-      desc: "Short-form video trends, hooks & audience reach"
-    },
-    {
-      name: "WhatsApp",
+      name: "Direct WhatsApp",
       handle: OWNER_INFO.phone,
       url: OWNER_INFO.socials.whatsapp,
       icon: "whatsapp" as const,
-      desc: "Direct instant chat & quick project consultation"
+      desc: "Direct 1-on-1 instant inquiry and live support"
     },
     {
-      name: "Email",
+      name: "Official Email",
       handle: OWNER_INFO.email,
       url: OWNER_INFO.socials.email,
       icon: "email" as const,
-      desc: "Formal business proposals & direct inquiries"
+      desc: "Formal enterprise RFPs & guest post inventory"
     }
   ];
 
@@ -62,63 +69,62 @@ export const SocialConnectSection: React.FC = () => {
     <section
       id="social"
       aria-label="Social Media Connections"
-      className="py-28 relative overflow-hidden w-full"
+      className="py-24 relative overflow-hidden w-full bg-slate-50/50"
     >
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[radial-gradient(circle,rgba(30,64,175,0.12)_0%,rgba(212,175,55,0.08)_50%,transparent_75%)] blur-3xl pointer-events-none -z-10" />
-
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 relative z-10 w-full">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#050D20]/90 border border-[#D4AF37]/30 mb-4 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-[#D4AF37] animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest metallic-gold-text">
-              LET’S CONNECT
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#182A52]/5 border border-[#182A52]/10 mb-4">
+            <span className="w-2 h-2 rounded-full bg-[#FFB719] animate-pulse" />
+            <span className="text-xs font-black uppercase tracking-widest text-[#182A52]">
+              OFFICIAL CHANNELS
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Find MH Marketing Across the{" "}
-            <span className="metallic-gold-heading">Web</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#182A52] tracking-tight">
+            Connect With GuestNexa &amp;{" "}
+            <span className="bg-gradient-to-r from-[#2587C4] to-[#182A52] bg-clip-text text-transparent">
+              Attia Awais
+            </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-slate-300">
-            Connect across your preferred digital platform for updates, insights, and quick direct communication.
+          <p className="mt-4 text-base sm:text-lg text-slate-600 font-medium">
+            Follow our verified social channels for daily outreach insights, new high-DA guest posting opportunities, and direct collaboration.
           </p>
         </div>
 
         {/* Social Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {socialChannels.map((ch) => (
             <a
               key={ch.name}
               href={ch.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open MH Marketing on ${ch.name}`}
-              className="glass-blue-panel glass-blue-panel-hover rounded-3xl p-6 border border-[#D4AF37]/30 flex flex-col justify-between group transition-all shadow-xl cursor-pointer"
+              aria-label={`Open GuestNexa on ${ch.name}`}
+              className="rounded-3xl p-6 bg-white border border-slate-200/80 hover:border-[#2587C4] hover:shadow-xl transition-all duration-300 flex flex-col justify-between group shadow-sm cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="w-13 h-13 rounded-2xl bg-[#03091B] border border-[#D4AF37]/35 group-hover:border-[#F3CF7A] group-hover:scale-110 transition-all duration-300 flex items-center justify-center p-3 shadow-md">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-[#2587C4]/10 border border-slate-200 group-hover:border-[#2587C4]/30 group-hover:scale-110 transition-all duration-300 flex items-center justify-center p-2.5">
                     <BrandIcon name={ch.icon} size={22} mode="authentic" />
                   </div>
-                  <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#F3CF7A] transition-colors" />
+                  <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-[#2587C4] transition-colors" />
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:metallic-gold-text transition-colors">
+                <h3 className="text-base font-bold text-[#182A52] group-hover:text-[#2587C4] transition-colors">
                   {ch.name}
                 </h3>
-                <p className="text-xs font-semibold metallic-gold-subtle mt-0.5 truncate">
+                <p className="text-xs font-semibold text-[#FFB719] mt-0.5 truncate">
                   {ch.handle}
                 </p>
-                <p className="text-xs text-slate-300 mt-2.5 leading-relaxed">
+                <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                   {ch.desc}
                 </p>
               </div>
 
-              <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-bold text-slate-300 group-hover:text-white">
-                <span>Connect</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#D4AF37] transition-transform group-hover:translate-x-1" />
+              <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-slate-600 group-hover:text-[#182A52]">
+                <span>Connect Now</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#2587C4] transition-transform group-hover:translate-x-1" />
               </div>
             </a>
           ))}
