@@ -8,6 +8,7 @@ import { BrandIcon } from "./BrandIcon";
 import { CountryFlag } from "./CountryFlag";
 import { OWNER_INFO } from "../data/portfolioData";
 import { ScrollReveal } from "./ScrollReveal";
+import { CountUp } from "./CountUp";
 
 // Authentic Blue Verified Badge (Exact Meta / Instagram / Twitter rosette with crisp checkmark)
 const AuthenticVerifiedBadge: React.FC<{ size?: number; className?: string }> = ({
@@ -307,7 +308,7 @@ export const HeroSection: React.FC = () => {
     <section
       id="hero"
       aria-label="Hero Section"
-      className="relative min-h-[84vh] lg:min-h-[88vh] flex flex-col justify-center pt-24 sm:pt-28 md:pt-32 lg:pt-36 xl:pt-40 pb-8 sm:pb-12 lg:pb-14 overflow-x-clip w-full scroll-mt-28"
+      className="relative min-h-[75vh] lg:min-h-[80vh] flex flex-col justify-center pt-16 sm:pt-18 md:pt-20 lg:pt-22 pb-8 sm:pb-10 overflow-x-clip w-full scroll-mt-20"
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-14 w-full">
         {/* MAIN HERO GRID: Left Content / Right Portrait Composition */}
@@ -656,7 +657,7 @@ export const HeroSection: React.FC = () => {
             {/* Box 1: 3+ Years SEO Experience */}
             <div className="flex flex-col items-center sm:items-start justify-center p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-[#2587C4]/50 transition-all duration-300 group min-h-[108px]">
               <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#182A52] tracking-tight group-hover:scale-105 transition-transform origin-left">
-                3+
+                <CountUp end={3} suffix="+" />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-semibold mt-1 text-center sm:text-left">
                 Years in Off-Page SEO
@@ -666,7 +667,7 @@ export const HeroSection: React.FC = () => {
             {/* Box 2: 2,500+ Backlinks Built */}
             <div className="flex flex-col items-center sm:items-start justify-center p-3 sm:p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-[#2587C4]/50 transition-all duration-300 group min-h-[108px]">
               <span className="text-2xl sm:text-3xl lg:text-4xl font-black text-[#2587C4] tracking-tight group-hover:scale-105 transition-transform origin-left">
-                2,500+
+                <CountUp end={2500} suffix="+" />
               </span>
               <span className="text-xs sm:text-sm text-slate-600 font-semibold mt-1 text-center sm:text-left">
                 High-DA Backlinks Built

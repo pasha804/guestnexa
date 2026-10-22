@@ -5,6 +5,7 @@ import { OWNER_INFO } from "../data/portfolioData";
 import { Globe, Sparkles, CheckCircle, Award, ShieldCheck, TrendingUp } from "lucide-react";
 import { CountryFlag } from "./CountryFlag";
 import { ScrollReveal } from "./ScrollReveal";
+import { CountUp } from "./CountUp";
 
 export const AboutSection: React.FC = () => {
   return (
@@ -110,7 +111,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div>
                 <p className="text-2xl sm:text-3xl font-black text-[#182A52]">
-                  3+ Years
+                  <CountUp end={3} suffix="+ Years" />
                 </p>
                 <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#2587C4] mt-0.5">
                   Off-Page SEO Specialization
@@ -128,7 +129,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div>
                 <p className="text-2xl sm:text-3xl font-black text-[#182A52]">
-                  850+ Sites
+                  <CountUp end={850} suffix="+ Sites" />
                 </p>
                 <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#FFB719] mt-0.5">
                   Vetted Publisher Network
@@ -146,7 +147,7 @@ export const AboutSection: React.FC = () => {
               </div>
               <div>
                 <p className="text-2xl sm:text-3xl font-black text-[#182A52]">
-                  +300% Avg.
+                  <CountUp end={300} prefix="+" suffix="% Avg." />
                 </p>
                 <p className="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#2587C4] mt-0.5">
                   Authority &amp; Traffic Velocity

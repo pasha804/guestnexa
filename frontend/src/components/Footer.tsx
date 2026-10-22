@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUp, Mail, Phone, MapPin, Globe } from "lucide-react";
 import { OWNER_INFO } from "../data/portfolioData";
 import { BrandIcon } from "./BrandIcon";
@@ -12,16 +11,6 @@ export const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const navLinks = [
-    { name: "Home", href: "/#hero" },
-    { name: "About", href: "/#about" },
-    { name: "Services", href: "/services" },
-    { name: "Case Studies", href: "/#projects" },
-    { name: "Credentials", href: "/#certificates" },
-    { name: "Reviews", href: "/#reviews" },
-    { name: "Contact", href: "/#contact" }
-  ];
 
   const socialLinks = [
     { name: "Facebook", href: OWNER_INFO.socials.facebook, icon: "facebook" as const },
